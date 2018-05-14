@@ -1,11 +1,10 @@
 <?php
-
 	if (session_status() == PHP_SESSION_NONE)
     	session_start();
     $uid = null;
 	add_user_to_db();
 
-	function add_user_to_db(){
+	function add_user_to_db() {
 		global $uid;
 		if (!isset($_POST) || empty($_POST['email'])) {
 			header('Location: index.php');
@@ -18,6 +17,7 @@
 		try
 		{
 	    	$db = new PDO('mysql:host=localhost;dbname=dauphine_research_os;charset=utf8', 'root', '');
+
 	    	if (check_in_db($_POST['email'], $db)) {
 				insert($_POST, $db);
 				$_SESSION['familyname'] = $_POST['familyname'];
@@ -29,8 +29,9 @@
 			} 
 			else 
 			{
-				alert_js("Erreur, email existe deja","");
-				$db = null;
+				alert_js("Erreur, email existe deja","signin.php");
+				header('Location: signin.php');
+				exit();
 			}
 	    }
 		catch (Exception $e)
@@ -43,15 +44,14 @@
 		$query = $db->prepare('select * from users where email= ?');
 		$query->bindValue( 1, $email );
 		$query->execute();
-
 		if($query->rowCount() > 0)
 			return false;
 		return true;
 	}
 
 	function insert ($user_data, $db) {
-
 		global $uid;
+
 		try
 		{
 	    	date_default_timezone_set('UTC');
@@ -75,6 +75,7 @@
 				$uid = $row['user_id'];
 			};
 			$req->closeCursor();
+			alert_js("Inscription OK","index.php");
 	    }
 		catch (Exception $e)
 		{
