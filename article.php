@@ -1,17 +1,46 @@
 <?php
 	if (session_status() == PHP_SESSION_NONE)
     	session_start();
+
+    if (empty($_GET)) {
+    	header('Location: index.php');
+    	exit();
+    }
+    if (!isset($_GET['article_id']) || $_GET['article_id'] == "") {
+    	header('Location: index.php');
+    	exit();
+    }
+
+	$article_id = $_GET['article_id'];
+    $db = new PDO('mysql:host=localhost;dbname=dauphine_research_os;charset=utf8', 'root', '');
+    
+    function print_main_article($db,$article_id) {
+    	$sql_query = "SELECT title, discipline, article_owner
+    				  FROM articles
+    				  WHERE article_id=?";
+    	$query = $db->prepare($sql_query);
+    	$query->bindParam(1,$article_id);
+    	$query->execute();
+    	$result_articles = $query->fetch(PDO::FETCH_OBJ);
+    	$sql_query = "SELECT first_name, last_name
+    				  FROM users
+    				  WHERE user_id=?";
+    	$query = $db->prepare($sql_query);
+    	$query->bindParam(1,$result_articles->article_owner);
+    	$query->execute();
+    	$result_owner = $query->fetch(PDO::FETCH_OBJ);
+    	echo "<h4>".$result_articles->title."</h4>";
+    	echo "<h5>Discipline ".$result_articles->discipline."</h4>";
+    	echo "<h4>Par ".$result_owner->last_name." ".$result_owner->first_name."</h4>";
+    	$sql_query = "SELECT description FROM mainarticle WHERE article_id=?";
+    	$query = $db->
+    }
 ?>
 
 <!DOCTYPE html>
 <html>
 	<header>
 		<head>
-		  <script>
-			function submitArticle() {
-				document.getElementById("articleForm").submit();
-			}
-		  </script>
 		  <meta charset="UTF-8">
 		  <title>Article</title>
 		  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
@@ -50,6 +79,7 @@
 		  <div class="tab-panels">
 		    <section id="Article" class="tab-panel">
 		      <h2>Article principal</h2>
+		      <?php print_main_article($db, $article_id);?>
 		   	</section>
 		  	<section id="hypotheses" class="tab-panel">
 		  		<h2>Hypothèses</h2>

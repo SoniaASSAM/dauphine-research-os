@@ -11,12 +11,25 @@
 <html>
 	<header>
 		<head>
-		  <script>
-			function submitArticle() {
-				document.getElementById("articleForm").submit();
-			}
-		  </script>
 		  <meta charset="UTF-8">
+		  <script type="text/javascript">
+			function submitArticle() {
+				if (validateForm()) 
+					document.getElementById("articleForm").submit();
+				else {
+					alert("Formulaire incomplet!");
+					document.getElementById("article").checked = true;
+				}
+			}
+
+			function validateForm() {
+				form = document.getElementById('articleForm');
+				if (form.description.value === "") return false;
+				else if (form.title.value === "") return false;
+				else return true;
+			}
+
+		  </script>
 		  <title>Article</title>
 		  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
 		  <link rel='stylesheet prefetch' href='https://fonts.googleapis.com/css?family=Overpass:300,400,600,800'>
@@ -31,8 +44,6 @@
 					</ul>"
 				?>
 		</head>
-
-		
 	</header>
 
 	<body>
@@ -76,16 +87,17 @@
 				</div>
 		   	</section>
 		  	<section id="hypotheses" class="tab-panel">
-		      	<input type="text" name="hyp1">
+		      	<textarea name="hypothesis" placeholder="Vos hypothèses de départ"></textarea>
 		  	</section>
 			<section id="experiences" class="tab-panel">
-				<input type="text" name="exp1">
+				<textarea name="experiences" placeholder="Les expériences que vous avez effectué"></textarea>
 			</section>
 			<section id="donnes" class="tab-panel">
-				<input type="file" name="dataset1">
+				<label for="dataset">Votre jeu de données</label>
+				<input type="file" name="dataset" id="dataset">
 			</section>
 			<section id="conclusions" class="tab-panel">
-				<input type="text" name="conclusion1">
+				<textarea name="conclusions" placeholder="Conclusions ?"></textarea>
 			</section>
 			<section id="publish" class="tab-panel">
 			</section>
