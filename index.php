@@ -14,8 +14,12 @@
 				if (isset($_SESSION['loggedIn']) && $_SESSION["loggedIn"]) {
 					echo "<ul><li>Hello ".$_SESSION["firstname"]." ".$_SESSION['familyname']."</li></ul>";
 					echo "\n<li><a href='add_article.php'>Nouvel article</a></li>";
+<<<<<<< HEAD
 					echo "\n<li><a href='logout.php'>Deconnexion</a></li>";
 					echo "\n<li><a href='load.php'>Chargement d'articles</a></li><ul>";
+=======
+					echo "\n<li><a href='logout.php'>Deconnexion</a></li><ul>";
+>>>>>>> e87cf4c03b536ece6b349fc51e9baa4f89ce8b6f
 				}
 				else echo "<ul>
 							<li><a href='login.php'>Connexion  |</a></li>

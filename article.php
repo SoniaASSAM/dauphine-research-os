@@ -15,7 +15,11 @@
     $db = new PDO('mysql:host=localhost;dbname=dauphine_research_os;charset=utf8', 'root', '');
     
     function print_main_article($db,$article_id) {
+<<<<<<< HEAD
     	$sql_query = "SELECT title, discipline, article_owner, content
+=======
+    	$sql_query = "SELECT title, discipline, article_owner
+>>>>>>> e87cf4c03b536ece6b349fc51e9baa4f89ce8b6f
     				  FROM articles
     				  WHERE article_id=?";
     	$query = $db->prepare($sql_query);
@@ -33,6 +37,7 @@
     	echo "<h5>Discipline ".$result_articles->discipline."</h4>";
     	echo "<h4>Par ".$result_owner->last_name." ".$result_owner->first_name."</h4>";
     	$sql_query = "SELECT description FROM mainarticle WHERE article_id=?";
+<<<<<<< HEAD
     }
 
     function print_hypothesis($db,$article_id) {
@@ -67,6 +72,9 @@
     	$query->execute();
     	$result_articles = $query->fetch(PDO::FETCH_OBJ);
     	echo $result_articles->content;
+=======
+    	$query = $db->
+>>>>>>> e87cf4c03b536ece6b349fc51e9baa4f89ce8b6f
     }
 ?>
 
