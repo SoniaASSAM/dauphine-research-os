@@ -11,8 +11,12 @@
 
 			<?php
 				session_start();
-				if (isset($_SESSION['loggedIn']) && $_SESSION["loggedIn"]) 
+				if (isset($_SESSION['loggedIn']) && $_SESSION["loggedIn"]) {
 					echo "<ul><li>Hello ".$_SESSION["firstname"]." ".$_SESSION['familyname']."</li></ul>";
+					echo "\n<li><a href='add_article.php'>Nouvel article</a></li>";
+					echo "\n<li><a href='logout.php'>Deconnexion</a></li>";
+					echo "\n<li><a href='load.php'>Chargement d'articles</a></li><ul>";
+				}
 				else echo "<ul>
 							<li><a href='login.php'>Connexion  |</a></li>
 							<li><a href='signin.php'>Inscription</a></li>
@@ -73,7 +77,6 @@
 							<li><a href="#">Proposer un sujet</a></li>
 						</div>
 					</ul> </li>
-					
 					
 				</ul>
 			
