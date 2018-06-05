@@ -5,14 +5,25 @@
 		<title>Dauphine Research Object System</title>
 		<meta name="viewport" content="width=device-width"/>
 		<link rel="stylesheet" href="projet.css" />
+		<script type="text/javascript">
+			var checkSearchForm = function() {
+				if (document.getElementById('element').value.replace(/ /g, "") === "")
+					return false;
+				return true;
+			}
+		</script>
 	</head>
 	
 	<div class="boutons">
 
 			<?php
 				session_start();
-				if (isset($_SESSION['loggedIn']) && $_SESSION["loggedIn"]) 
+				if (isset($_SESSION['loggedIn']) && $_SESSION["loggedIn"]) {
 					echo "<ul><li>Hello ".$_SESSION["firstname"]." ".$_SESSION['familyname']."</li></ul>";
+					echo "\n<li><a href='add_article.php'>Nouvel article</a></li>";
+					echo "\n<li><a href='logout.php'>Deconnexion</a></li>";
+					echo "\n<li><a href='load.php'>Chargement d'articles</a></li><ul>";
+				}
 				else echo "<ul>
 							<li><a href='login.php'>Connexion  |</a></li>
 							<li><a href='signin.php'>Inscription</a></li>
@@ -21,7 +32,7 @@
 	</div>
 	
 </header>
-<body background= "images/stucco.jpg">
+<body>
 	
 	<div class="choix">
 		<nav>
@@ -36,9 +47,11 @@
 	<div class="image">
 		<div class="description">
 			<div class="barrederecherche">
-				<form action="" class="formulaire">
-					<input class="champ" type="text" placeholder="Entrez votre recherche ici...  "/>
-					<input class="bouton" type="button" value="OK" />
+				<form action="search.php" class="formulaire" method="post" onsubmit="return checkSearchForm()">
+					<input name="element" id="element" class="champ" type="text" placeholder="Entrez votre recherche ici...  "/>
+					<input type="submit" 
+       					style="position: absolute; left: -9999px; width: 1px; height: 1px;"
+       					tabindex="-1" />
 				</form>
 			</div>
 		</div>
@@ -73,7 +86,6 @@
 							<li><a href="#">Proposer un sujet</a></li>
 						</div>
 					</ul> </li>
-					
 					
 				</ul>
 			

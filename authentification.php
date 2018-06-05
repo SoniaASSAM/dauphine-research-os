@@ -7,6 +7,8 @@
    	$uid = null;
     connect_user($_POST);
 
+
+
 	function check_user($email, $passwd) {
 
 		global $familyname, $firstname, $uid;
@@ -45,7 +47,7 @@
 			$update_connection_status = "UPDATE users 
 			 						     set connected = ?  last_connection = ?
 			 							 WHERE email = ?";
-			$array = array(true, $d, $email);
+			$array = array(1, $d, $email);
 			$query = $db-> prepare($update_connection_status);
 			$query->execute($array);
 		}

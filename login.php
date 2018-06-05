@@ -25,9 +25,7 @@
 		</script>
 	</head>
 
-
 	<body>
-
 		 <form  name="connexion" method="post" action="authentification.php" onsubmit="return validateForm(this)"/>	
 
 			<label for="email"> Login :</label>

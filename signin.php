@@ -1,11 +1,4 @@
 <?php
-<<<<<<< HEAD
-	session_start(); // On dÃ©marre la session AVANT toute chose
-	$_SESSION['loggedIn'] = false;
-=======
-	session_start(); // On démarre la session AVANT toute chose
-	//$_SESSION['loggedIn'] = false;
->>>>>>> 8f2c5ffef5f1f685818d8853af4852cf6737e20c
 	if (isset($_SESSION['loggedIn']) && $_SESSION["loggedIn"]) {
 		header('Location: index.php');
   		exit();
