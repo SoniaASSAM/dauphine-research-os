@@ -1,9 +1,5 @@
 <?php
 	
-	if ($_POST['element'] == null || $_POST['element'] == "") {
-		header("Location: index.php");
-		exit();
-	}
 	ini_set('session.cache_limiter','public');
 	session_cache_limiter(false);
 
@@ -88,7 +84,11 @@
 			<h1> Dauphine Research Academy</h1>
 			<a href="index.html"><button class="DeconnexionB"> Déconnexion </button></a>
 		</div>
-		<h2>Votre recherche concernant : <?php echo $_POST['element'];?> </h2>
+		<h2>Votre recherche concernant : <?php 
+											if ($_POST['element']=="" || $_POST["element"] == null) 
+												echo "Tout les articles"; 
+											else echo $_POST['element']  ;?> 
+		</h2>
 		<div style="right:40px;position:absolute;">
 				<form action="search.php" class="formulaire" method="post" onsubmit="return checkSearchForm()">
 					<input name="element" id="element" class="champ" type="text" placeholder="Que voulez vous chercher ?"
