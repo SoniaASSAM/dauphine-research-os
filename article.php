@@ -76,22 +76,33 @@
     <head>
       <meta charset="UTF-8">
       <title>Article</title>
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
-      <link rel='stylesheet prefetch' href='https://fonts.googleapis.com/css?family=Overpass:300,400,600,800'>
       <link rel="stylesheet" href="style.css">
-      <link rel="stylesheet" href="projet.css" />
-      <div class="boutons">
-        <?php echo 
-          "<ul>
-            <li>Hello ".$_SESSION["firstname"]." ".$_SESSION['familyname']."</li>
-            <li><a href='add_article.php'>Nouvel article</a></li>
-            <li><a href='logout.php'>Déconnexion</a></li>
-          </ul>"
-        ?>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.css">
+      <link rel='stylesheet prefetch' href='https://fonts.googleapis.com/css?family=Overpass:300,400,600,800'>
+      
     </head>
   </header>
 
   <body>
+
+    <div>
+    <ul>
+        <li><a class="active" href="index.php">Home</a></li>
+        <li><a href="load.php">Chargements d'artciles </a></li>
+        <li><a href="search.php">Rechercher un article</a></li>
+        <li><a href="add_article.php">Publication d'articles</a></li>
+
+    </ul>
+
+</div>
+
+<div class="container-index100" style=" background-image: url('images/bg-01.jpg'); " >
+
+    <img src="images/logo.png" class="logo">
+    <h1> Dauphine Research Academy</h1>
+    <a href="index.html"><button class="DeconnexionB"> Déconnexion </button></a>
+
+</div>
     <div class="tabset" name="tabsetDiv">
         <!-- Tab 1 -->
         <input type="radio" name="tabset" id="article" aria-controls="Article" checked>

@@ -13,7 +13,6 @@
 	function search_by_title($element) {
 		
 		global $db;
-		// $db = new PDO('mysql:host=localhost;dbname=dauphine_research_os;charset=utf8', 'root', '');
 		$sql_query = 'SELECT article_id, title, discipline, publicate_date, article_owner FROM articles WHERE title LIKE ?';
 		$query = $db->prepare($sql_query);
 		$t = '%'.$element.'%';
@@ -38,14 +37,14 @@
 	function print_result($result) {
 		global $db;
 
-		if ($result == null) 
-			echo "Aucun résultat trouvé";
+		if ($result == null) {
+			echo "<img src=\"https://image.flaticon.com/icons/svg/202/202381.svg\" alt=\"Nothing found\"  style=\"display: block;
+					margin-left: auto;margin-right: auto;width: 20%;\">";
+			echo "<h3>Oops, nous n'avons trouvé aucun résultat</h3>";
+		}
 		else {
 			foreach ($result as $row) {
-				echo "<ul>";
 				print_element($row);
-				echo "</ul>";
-
 			}
 		}
 	}
@@ -60,46 +59,52 @@
 		$publicate_date = $row["publicate_date"];
 		$title = $row['title'];
 		$discipline = $row['discipline'];
-		echo '<li>';
-		echo "<h3><a href=article.php?article_id=".$article_id.">".$title."</a></h3>";
-		echo "<p>".$last_name." ".$firstname." - ".$discipline." - ".$publicate_date." - 0 commentaires</p>";
-		echo '</li>';
+		echo '<div style="background:#f3f2f1;width: 100%;height: 50px;color:#afaead"><b>';
+		echo "<p style=\"padding-left: 15px;\"><a href=article.php?article_id=".$article_id.">".$title."</a>";
+		echo "</b></p><label style=\"font-family: Trebuchet MS, sans-serif;font-size: 13px;padding-left: 17px;\">".$last_name." ".$firstname." - ".$discipline." - ".$publicate_date." - 0 commentaires</label></div><br>";
 	}
 ?>
 
 <!DOCTYPE html>
-<html>
-	<header>
-		<head>
-			<meta charset="utf-8" />
-			<title>Recherche</title>
-			<meta name="viewport" content="width=device-width"/>
-			<!--<link rel="stylesheet" href="projet.css" />-->
-		</head>
-		
-		<div class="boutons">
-
-				<?php
-					session_start();
-					if (isset($_SESSION['loggedIn']) && $_SESSION["loggedIn"]) {
-						echo "<ul><li>Hello ".$_SESSION["firstname"]." ".$_SESSION['familyname']."</li></ul>";
-						echo "\n<li><a href='add_article.php'>Nouvel article</a></li>";
-						echo "\n<li><a href='logout.php'>Deconnexion</a></li>";
-						echo "\n<li><a href='load.php'>Chargement d'articles</a></li><ul>";
-					}
-					else echo "<ul>
-								<li><a href='login.php'>Connexion  |</a></li>
-								<li><a href='signin.php'>Inscription</a></li>
-							   </ul> ";
-				?>
-		</div>
-		
-	</header>
+<html lang="fr">
+	<head>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" type="text/css" href="style.css">
+		<link rel="stylesheet" type="text/css" href="css/util.css">
+		<title>Consultation Articles ¦ Dauphine Research Academy</title>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.css">
+	</head>
 	<body>
+		<div>
+			<ul>
+				<li><a class="active" href="index.php">Home</a></li>
+				<li><a class="active" href="load.php">Chargements d'artciles </a></li>
+				<li><a class="active" href="index3.html">Consultation des articles</a></li>
+				<li><a class="active" href="index2.html">Publication d'articles</a></li>
+			</ul>
+		</div>
+		<div class="container-index100" style=" background-image: url('images/bg-01.jpg'); " >
+			<img src="images/logo.png" class="logo">
+			<h1> Dauphine Research Academy</h1>
+			<a href="index.html"><button class="DeconnexionB"> Déconnexion </button></a>
+		</div>
 		<h2>Votre recherche concernant : <?php echo $_POST['element'];?> </h2>
-
-		<div id="result" class="article_result">
+		<div style="right:40px;position:absolute;">
+				<form action="search.php" class="formulaire" method="post" onsubmit="return checkSearchForm()">
+					<input name="element" id="element" class="champ" type="text" placeholder="Que voulez vous chercher ?"
+						   style="border:1px solid black; border-radius: 30px; width:200px;height:30px"/>
+					<input type="submit" 
+				           style="position: absolute; left: -9999px; width: 1px; height: 1px;"
+       			   		   tabindex="-1" />
+				</form>
+	</div>
+		<br>
+		<br>
+		<br>
+		<br>
+		<div>
 			<?php print_result(search_by_title($_POST['element'])); ?>
 		</div>
 	</body>
 </html>
+

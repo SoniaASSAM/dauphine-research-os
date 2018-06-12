@@ -30,8 +30,6 @@
 			else 
 			{
 				alert_js("Erreur, email existe deja","signin.php");
-				header('Location: signin.php');
-				exit();
 			}
 	    }
 		catch (Exception $e)

@@ -1,8 +1,10 @@
 <?php
-	if (isset($_SESSION['loggedIn']) && $_SESSION["loggedIn"]) {
-		header('Location: index.php');
-  		exit();
-	}
+	if (session_status() == PHP_SESSION_NONE)
+    		session_start();
+    if (isset($_SESSION['loggedIn']) && $_SESSION['loggedIn']) {
+    	header('Location: index.php');
+    	exit();
+    }
 ?>
 
 <!DOCTYPE html>
@@ -37,6 +39,17 @@
 					res = false;
 				else res = true;
 				if (!res) alert('Erreur ! Verifiez vos informations');
+				return res;
+			} 
+
+			var validateLoginForm = function(form) {
+				var res;
+				if (form.passwd.value === "")
+					res = false;
+				else if (form.email.value === '')
+					res = false;
+				else res = true;
+				if (!res) alert('Erreur ! Formulaire incomplet');
 				return res;
 			} 
 
@@ -94,7 +107,7 @@
         </section>
 
 		 <section id="register_div">
-            <form class="register100-form validate-form" method="POST" id="subscribtionForm" onsubmit="return validateSigninForm(this)">
+            <form class="register100-form validate-form" method="POST" id="subscribtionForm" action="add_user_db.php" onsubmit="return validateSigninForm(this) ">
 				<span class="login100-form-title p-b-37">
 					Sign in
 				</span>
@@ -120,12 +133,12 @@
                 </div>
 
                 <div class="wrap-input100 validate-input m-b-25">
-                    <input class="input100" type="password" name="passwd" id="passwd" placeholder="Mot de passe">
+                    <input class="input100" type="password" name="passwd" id="passwd" placeholder="Mot de passe" oninput="checkPassword()>
                     <span class="focus-input100"></span>
                 </div>
 
                 <div class="wrap-input100 validate-input m-b-25">
-                    <input class="input100" type="password" name="confirm_passwd" id="confirm_passwd" placeholder="Confirmation de mot de passe">
+                    <input class="input100" type="password" name="confirm_passwd" id="confirm_passwd" placeholder="Confirmation de mot de passe" oninput="checkPassword()>
                     <span class="focus-input100"></span>
                 </div>
 
